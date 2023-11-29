@@ -45,6 +45,7 @@ const EditarUsuario = () => {
 			...userData,
 			[e.target.name]: e.target.value,
 		});
+		
 	};
 
 	return (
@@ -90,9 +91,9 @@ const EditarUsuario = () => {
 					className="form-check-input"
 					name="ispremium"
 					type="checkbox"
-					checked={userData.is_premium ? true : false}
-					value={userData.is_premium || ""}
+					value={userData.is_premium ? true : false || ""}
 					onChange={handleInputChange}
+					
 				/>
 				<br />
 				<br />
@@ -102,7 +103,7 @@ const EditarUsuario = () => {
 					name="birthdate"
 					type="date"
 					value={
-						new Date(userData.birthdate).toLocaleDateString() || ""
+						userData.birthdate || ""
 					}
 					onChange={handleInputChange}
 				/>

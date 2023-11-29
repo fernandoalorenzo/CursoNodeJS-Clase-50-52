@@ -1,7 +1,5 @@
 /* eslint-disable no-unused-vars */
 import { useState, useEffect } from "react";
-// import CrearUsuario from "./CrearUsuario";
-// import EditarUsuario from "./EditarUsuario";
 import { deleteUser } from "./ApiMethods";
 import { useNavigate, Link } from "react-router-dom";
 
@@ -35,9 +33,6 @@ function UserTable() {
 	};
 
 	const handleEditar = (id_user) => {
-		// setMostrarFormEditar(true);
-		// navigate("/edit-user/", { state: { id_user } });
-		// navigate(`/EditarUsuario/${id_user}`);
 		navigate(`/EditarUsuario/${id_user}`);
 	};
 
@@ -126,10 +121,6 @@ function UserTable() {
 					</table>
 				</div>
 			</section>
-			{/* {mostrarForm == true && <CrearUsuario fetchUsers={fetchUsers} />}
-			{mostrarFormEditar == true && (
-				<EditarUsuario fetchUsers={fetchUsers} />
-			)} */}
 		</>
 	);
 }
