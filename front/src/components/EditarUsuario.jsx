@@ -7,7 +7,13 @@ import { useNavigate } from "react-router-dom";
 
 const EditarUsuario = () => {
 	const { userId } = useParams();
-	const [userData, setUserData] = useState({ name: "", age: 0, email: "", is_premium: false, birthdate: "" });
+	const [userData, setUserData] = useState({
+		name: "",
+		age: 0,
+		email: "",
+		is_premium: false,
+		birthdate: "",
+	});
 	const navigate = useNavigate();
 
 	const fetchUserData = useCallback(async () => {
@@ -22,8 +28,12 @@ const EditarUsuario = () => {
 				throw new Error("User not found");
 			}
 			const data = await response.json();
+			if (data.birthdate) {
+				data.birthdate = data.birthdate.substring(0, 10);
+			} else {
+				data.birthdate = "";
+			}
 			setUserData(data);
-			console.log(data);
 		} catch (error) {
 			console.error(error);
 			return [];
@@ -45,76 +55,104 @@ const EditarUsuario = () => {
 			...userData,
 			[e.target.name]: e.target.value,
 		});
-		
+	};
+
+	const handleCheckboxChange = (e) => {
+		setUserData({
+			...userData,
+			is_premium: e.target.checked,
+		});
 	};
 
 	return (
-		<div>
-			<h1>Editar Usuario</h1>
-			<form>
-				<label htmlFor="name" className="form-label">
-					Usuario
-				</label>
-				<input
-					className="form-control"
-					name="name"
-					type="text"
-					value={userData.name || ""}
-					onChange={handleInputChange}
-				/>
-				<br />
-				<label htmlFor="age" className="form-label">
-					Edad
-				</label>
-				<input
-					className="form-control"
-					name="age"
-					type="text"
-					value={userData.age || ""}
-					onChange={handleInputChange}
-				/>
-				<br />
-				<label>Email:</label>
-				<input
-					className="form-control"
-					name="email"
-					type="text"
-					value={userData.email || ""}
-					onChange={handleInputChange}
-				/>
-				<br />
-				<label className="form-check-label" htmlFor="ispremium">
-					Premium:
-				</label>
-				<br />
-				<input
-					className="form-check-input"
-					name="ispremium"
-					type="checkbox"
-					value={userData.is_premium ? true : false || ""}
-					onChange={handleInputChange}
-					
-				/>
-				<br />
-				<br />
-				<label>Nacimiento:</label>
-				<input
-					className="form-control"
-					name="birthdate"
-					type="date"
-					value={
-						userData.birthdate || ""
-					}
-					onChange={handleInputChange}
-				/>
-				<br />
+		<div className="container w-50">
+			<div className="row">
+				<h1 className="text-center">Editar Usuario</h1>
+			</div>
+			<div className="row g-2 my-3">
+				<div className="col-6">
+					<label htmlFor="name" className="form-label">
+						Nombre
+					</label>
+					<input
+						className="form-control"
+						name="name"
+						type="text"
+						value={userData.name || ""}
+						onChange={handleInputChange}
+					/>
+				</div>
+				<div className="col-md-6">
+					<label htmlFor="email" className="form-label">
+						Email
+					</label>
+					<input
+						className="form-control"
+						name="email"
+						type="text"
+						value={userData.email || ""}
+						onChange={handleInputChange}
+					/>
+				</div>
+			</div>
+			<div className="row g-3 my-3">
+				<div className="col-4 text-center">
+					<label htmlFor="age" className="form-label">
+						Edad
+					</label>
+					<input
+						className="form-control text-center"
+						name="age"
+						type="number"
+						value={userData.age || ""}
+						onChange={handleInputChange}
+					/>
+				</div>
+				<div className="col-4 text-center">
+					<label
+						className="form-check-label"
+						htmlFor="ispremium">
+						Premium
+					</label>
+					<br />
+					<input
+						className="form-check-input"
+						name="ispremium"
+						type="checkbox"
+						checked={userData.is_premium}
+						onChange={handleCheckboxChange}
+					/>
+				</div>
+				<div className="col-4 text-center">
+					<label htmlFor="birthdate"
+						className="form-label">
+						Nacimiento
+					</label>
+					<input
+						className="form-control text-center"
+						name="birthdate"
+						type="date"
+						value={userData.birthdate || ""}
+						onChange={handleInputChange}
+					/>
+				</div>
+			</div>
+			<div className="d-grid gap-2 d-md-flex justify-content-md-end">
 				<button
 					type="button"
 					className="btn btn-primary"
 					onClick={handleUpdate}>
+					<i className="fa-regular fa-floppy-disk px-2"></i>
 					Guardar
 				</button>
-			</form>
+				<button
+					type="button"
+					className="btn btn-danger"
+					onClick={() => navigate("/")}>
+					<i className="fa-solid fa-ban px-2"></i>
+					Cancelar
+				</button>
+			</div>
 		</div>
 	);
 };

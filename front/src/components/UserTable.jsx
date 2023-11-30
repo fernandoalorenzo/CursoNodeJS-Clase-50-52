@@ -1,3 +1,4 @@
+/* eslint-disable no-mixed-spaces-and-tabs */
 /* eslint-disable no-unused-vars */
 import { useState, useEffect } from "react";
 import { deleteUser } from "./ApiMethods";
@@ -36,7 +37,6 @@ function UserTable() {
 		navigate(`/EditarUsuario/${id_user}`);
 	};
 
-
 	async function handleEliminarUsuario(id_user) {
 		await deleteUser(id_user);
 		fetchUsers();
@@ -49,36 +49,38 @@ function UserTable() {
 
 	return (
 		<>
-			<section>
+			<div className="container-fluid w-75">
+				<div className="row">
+					<h1 className="text-center">CRUD de Usuarios</h1>
+				</div>
 				<div className="d-flex justify-content-end mb-3">
 					<button
 						type="button"
-						className="btn btn-primary"
+						className="btn btn-primary align-self-end"
 						id="abrirModalAgregar"
 						onClick={() => handleAgregar()}>
 						<i className="fa-regular fa-square-plus"></i> Agregar
 					</button>
 				</div>
-				<div className="container">
-					<table className="table table-striped table-bordered">
-						<thead>
+				<div className="row">
+					<table className="table table-hover table-sm table-borderless align-middle text-center">
+						<thead className="table-dark">
 							<tr>
-								<th scope="col">ID</th>
 								<th scope="col">Nombre</th>
 								<th scope="col">Edad</th>
 								<th scope="col">Email</th>
 								<th scope="col">Premium</th>
 								<th scope="col">Fecha Nacimiento</th>
+								<th scope="col">Acciones</th>
 							</tr>
 						</thead>
 						<tbody>
 							{users.map((user, index) => (
 								// <tr key={index+1}>
 								<tr key={user.id_user}>
-									<td scope="row">{user.id_user}</td>
-									<td>{user.name}</td>
+									<td className="text-start">{user.name}</td>
 									<td>{user.age}</td>
-									<td>{user.email}</td>
+									<td className="text-start">{user.email}</td>
 									<td>
 										<input
 											type="checkbox"
@@ -89,13 +91,15 @@ function UserTable() {
 										/>
 									</td>
 									<td>
-										{new Date(
-											user.birthdate
-										).toLocaleDateString()}
+										{user.birthdate
+											? new Date(
+													user.birthdate
+											  ).toLocaleDateString("en-GB")
+											: ""}
 									</td>
-									<td className="align-middle col-4">
+									<td className="table-secondary">
 										<button
-											className="btn btn-warning mx-3"
+											className="btn btn-warning mx-2"
 											data-bs-id="{user.id_user}"
 											onClick={() =>
 												handleEditar(user.id_user)
@@ -104,7 +108,7 @@ function UserTable() {
 											Editar
 										</button>
 										<button
-											className="btn btn-danger mx-3"
+											className="btn btn-danger mx-2"
 											data-bs-id="{user.id_user}"
 											onClick={() =>
 												handleEliminarUsuario(
@@ -120,7 +124,7 @@ function UserTable() {
 						</tbody>
 					</table>
 				</div>
-			</section>
+			</div>
 		</>
 	);
 }

@@ -33,39 +33,105 @@ function CrearUsuario() {
 		navigate("/");
 	}
 
+		const handleCheckboxChange = (e) => {
+			setNuevoUsuario({
+				...nuevoUsuario,
+				is_premium: e.target.checked,
+			});
+		};
+
 	return (
 		<>
-			<div id="usuarionuevo">
-				<h1>Crear nuevo usuario</h1>
-				<form onSubmit={handleSubmitNuevoUsuario}>
-					<div className="mb-3">
+			<div className="container w-50" id="usuarionuevo">
+				<div className="row">
+					<h1 className="text-center">Crear Nuevo Usuario</h1>
+				</div>
+				<div className="row g-2 my-3">
+					{/* <form onSubmit={handleSubmitNuevoUsuario}> */}
+					<div className="col-6">
 						<label htmlFor="name" className="form-label">
 							Nombre
 						</label>
 						<input
 							type="text"
 							className="form-control"
-							id="name"
 							name="name"
 							value={nuevoUsuario.name}
 							onChange={handleNuevoUsuarioChange}
 						/>
+					</div>
+					<div className="col-md-6">
+						<label htmlFor="email" className="form-label">
+							Email
+						</label>
+						<input
+							type="text"
+							className="form-control"
+							name="email"
+							value={nuevoUsuario.email}
+							onChange={handleNuevoUsuarioChange}
+						/>
+					</div>
+				</div>
+				<div className="row g-3 my-3">
+					<div className="col-4 text-center">
 						<label htmlFor="age" className="form-label">
 							Edad
 						</label>
 						<input
 							type="number"
-							className="form-control"
-							id="age"
+							className="form-control text-center"
 							name="age"
 							value={nuevoUsuario.age}
 							onChange={handleNuevoUsuarioChange}
 						/>
 					</div>
-					<button type="submit" className="btn btn-primary">
+					<div className="col-4 text-center">
+						<label
+							htmlFor="ispremium"
+							className="form-check-label">
+							Premium
+						</label>
+						<br />
+						<input
+							type="checkbox"
+							className="form-check-input"
+							name="ispremium"
+							checked={nuevoUsuario.is_premium}
+							onChange={handleCheckboxChange}
+						/>
+					</div>
+					<div className="col-4 text-center">
+						<label htmlFor="birthdate"
+							className="form-label">
+							Nacimiento
+						</label>
+						<input
+							type="date"
+							className="form-control text-center"
+							name="birthdate"
+							value={nuevoUsuario.birthdate || ""}
+							onChange={handleNuevoUsuarioChange}
+						/>
+					</div>
+				</div>
+				<div className="d-grid gap-2 d-md-flex justify-content-md-end">
+					<button
+						type="button"
+						className="btn btn-primary"
+						onClick={handleSubmitNuevoUsuario}>
+						<i className="fa-regular fa-floppy-disk px-2"></i>
 						Guardar
 					</button>
-				</form>
+					<button
+						type="button"
+						className="btn btn-danger"
+						onClick={() => navigate("/")}>
+						<i className="fa-solid fa-ban px-2"></i>
+						Cancelar
+					</button>
+				</div>
+				{/* </form> */}
 			</div>
 		</>
 	);
