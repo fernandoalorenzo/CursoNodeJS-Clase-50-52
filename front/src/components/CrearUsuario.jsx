@@ -23,9 +23,7 @@ function CrearUsuario() {
 
 	async function handleSubmitNuevoUsuario(event) {
 		event.preventDefault();
-		// console.log(nuevoUsuario);
 		await createUser(nuevoUsuario);
-		// fetchUsers();
 		setNuevoUsuario({
 			name: "",
 			age: 0,
@@ -47,7 +45,6 @@ function CrearUsuario() {
 					<h1 className="text-center">Crear Nuevo Usuario</h1>
 				</div>
 				<div className="row g-2 my-3">
-					{/* <form onSubmit={handleSubmitNuevoUsuario}> */}
 					<div className="col-6">
 						<label htmlFor="name" className="form-label">
 							Nombre
@@ -56,6 +53,7 @@ function CrearUsuario() {
 							type="text"
 							className="form-control"
 							name="name"
+							id="name"
 							value={nuevoUsuario.name}
 							onChange={handleNuevoUsuarioChange}
 						/>
@@ -68,6 +66,7 @@ function CrearUsuario() {
 							type="text"
 							className="form-control"
 							name="email"
+							id="email"
 							value={nuevoUsuario.email}
 							onChange={handleNuevoUsuarioChange}
 						/>
@@ -82,6 +81,7 @@ function CrearUsuario() {
 							type="number"
 							className="form-control text-center"
 							name="age"
+							id="age"
 							value={nuevoUsuario.age}
 							onChange={handleNuevoUsuarioChange}
 						/>
@@ -97,6 +97,7 @@ function CrearUsuario() {
 							type="checkbox"
 							className="form-check-input"
 							name="ispremium"
+							id="ispremium"
 							checked={nuevoUsuario.is_premium}
 							onChange={handleCheckboxChange}
 						/>
@@ -110,6 +111,7 @@ function CrearUsuario() {
 							type="date"
 							className="form-control text-center"
 							name="birthdate"
+							id="birthdate"
 							value={nuevoUsuario.birthdate || ""}
 							onChange={handleNuevoUsuarioChange}
 						/>
@@ -119,6 +121,7 @@ function CrearUsuario() {
 					<button
 						type="button"
 						className="btn btn-primary"
+						id="guardar"
 						onClick={handleSubmitNuevoUsuario}>
 						<i className="fa-regular fa-floppy-disk px-2"></i>
 						Guardar
@@ -126,12 +129,12 @@ function CrearUsuario() {
 					<button
 						type="button"
 						className="btn btn-danger"
+						id="cancelar"
 						onClick={() => navigate("/")}>
 						<i className="fa-solid fa-ban px-2"></i>
 						Cancelar
 					</button>
 				</div>
-				{/* </form> */}
 			</div>
 		</>
 	);

@@ -6,8 +6,6 @@ import { useNavigate, Link } from "react-router-dom";
 
 function UserTable() {
 	const [users, setUsers] = useState([]);
-	const [mostrarForm, setMostrarForm] = useState(false);
-	const [mostrarFormEditar, setMostrarFormEditar] = useState(false);
 	const navigate = useNavigate();
 
 	const fetchUsers = async () => {
@@ -21,7 +19,6 @@ function UserTable() {
 			const data = await response.json();
 			console.log(data);
 			setUsers(data);
-			setMostrarForm(false);
 		} catch (error) {
 			console.error(error);
 			return [];
@@ -29,7 +26,6 @@ function UserTable() {
 	};
 
 	const handleAgregar = () => {
-		setMostrarForm(true);
 		navigate("/CrearUsuario");
 	};
 
@@ -93,8 +89,7 @@ function UserTable() {
 									<td>
 										{user.birthdate
 											? new Date(
-													user.birthdate
-											  ).toLocaleDateString("en-GB")
+												user.birthdate).toLocaleDateString("en-GB")
 											: ""}
 									</td>
 									<td className="table-secondary">
