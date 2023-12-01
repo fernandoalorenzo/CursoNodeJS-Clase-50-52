@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 async function createUser(user) {
 	try {
 		const response = await fetch("http://localhost:5000/users", {
@@ -58,7 +59,7 @@ const getUsers = async () => {
 			throw new Error("Users not found");
 		}
 		const data = await response.json();
-		console.log(data);
+		// console.log(data);
 	} catch (error) {
 		console.error(error);
 		return [];
@@ -74,7 +75,7 @@ const getUser = async (userId) => {
 			throw new Error("User not found");
 		}
 		const data = await response.json();
-		console.log(data);
+		return data;
 	} catch (error) {
 		console.error(error);
 		return [];

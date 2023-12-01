@@ -18,16 +18,7 @@ const EditarUsuario = () => {
 
 	const fetchUserData = useCallback(async () => {
 		try {
-			const response = await fetch(
-				`http://localhost:5000/users/${userId}`,
-				{
-					method: "GET",
-				}
-			);
-			if (!response.ok) {
-				throw new Error("User not found");
-			}
-			const data = await response.json();
+			const data = await getUser(userId)
 			if (data.birthdate) {
 				data.birthdate = data.birthdate.substring(0, 10);
 			} else {
@@ -36,6 +27,7 @@ const EditarUsuario = () => {
 			setUserData(data);
 		} catch (error) {
 			console.error(error);
+			setUserData(null);
 			return [];
 		}
 	}, [userId]);
